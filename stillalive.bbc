@@ -1,0 +1,45 @@
+10 MODE 4
+20 PROCsetup
+30 PROCdraw_panels
+40 PROClyrics
+50 REPEAT UNTIL FALSE
+
+1000 DEF PROCsetup
+1010 VDU 23,1,0;0;0;0; :REM Turn off cursor
+1020 VDU 5             :REM Enable graphics-text mode
+1030 CLS
+1040 ENDPROC
+
+2000 DEF PROCdraw_panels
+2010 REM Set color to amber/yellow
+2020 GCOL 0, 2
+2030 REM --- Draw Main Vertical Divider ---
+2040 MOVE 640, 1023: DRAW 640, 60
+2050 REM --- Draw Right Horizontal Divider ---
+2060 MOVE 640, 480: DRAW 1279, 480
+2070 REM --- Draw Bottom Border ---
+2080 MOVE 0, 60: DRAW 1279, 60
+2090 ENDPROC
+
+3000 DEF PROClyrics
+3010 REM Header Text
+3020 MOVE 20, 1000: PROCtype("Forms FORM-29027281-12:")
+3030 MOVE 20, 960: PROCtype("Test Assessment Report")
+3040 REM Tiny delay before lyrics start
+3050 FOR D%=1 TO 2000:NEXT
+
+3060 REM First Lyric Block
+3070 MOVE 20, 860: PROCtype("This was a triumph.")
+3080 MOVE 20, 810: PROCtype("I'm making a note here:")
+3090 MOVE 20, 760: PROCtype("HUGE SUCCESS.")
+3100 MOVE 20, 710: PROCtype("It's hard to overstate")
+3110 MOVE 20, 660: PROCtype("my satisfaction.")
+3120 ENDPROC
+
+4000 DEF PROCtype(text$)
+4010 LOCAL I%, delay%
+4020 FOR I% = 1 TO LEN(text$)
+4030   PRINT MID$(text$, I%, 1);
+4040   FOR delay% = 1 TO 300:NEXT
+4050 NEXT I%
+4060 ENDPROC
